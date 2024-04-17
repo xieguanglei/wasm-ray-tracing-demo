@@ -1,0 +1,11 @@
+[package]
+name = "ray-tracing"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = "0.2.84"
+js-sys = "0.3.69"

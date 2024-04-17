@@ -1,0 +1,31 @@
+name: deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    environment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - name: Install wasm-pack
+        run: npm install -g wasm-pack
+      - name: Build wasm
+        run: wasm-pack build
+        working-directory: wasm
+      - name: Npm install
+        run: npm install
+        working-directory: web
+      - name: Build web 
+        run: npm run build
+        working-directory: web
